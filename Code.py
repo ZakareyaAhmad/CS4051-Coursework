@@ -128,9 +128,8 @@ def main(): # Uses def to define the main function that is responsible for carry
         elif choice == '7': # If the user selected 7
             print("\nExiting the application. Goodbye!") # Prints an exitiing message
             break # Exits the loop if the user has inputted FINISHED 
-        else: # Alternative if the 
+        else: # Alternative if the user has entered an invalid number
             print("INVALID: Please enter a number from 1 to 7.") # Prints an error message  
 
-if __name__ == "__main__": # Checks if the program is being run 
+if __name__ == "__main__": # Checks if the program is being run
     main() # Starts the execution of the program
- 
