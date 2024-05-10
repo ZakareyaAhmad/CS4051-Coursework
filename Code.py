@@ -84,6 +84,7 @@ def main(): # Uses def to define the main function that is responsible for carry
         print("(5) Enter more numbers") # Prints the option to add more numbers
         print("(6) Read data from a file") # Prints the option to read the data from a file 
         print("(7) Exit the application") # Prints the option to exit the application
+        print("(8) Enter new numbers") # Prints the option to enter new numbers
         choice = input("\nEnter your choice: ").strip() # Makes the user enter their option, assigining it to the variable choice
 
         if choice == '1': # Checks to see if the user has selected 1
@@ -128,6 +129,17 @@ def main(): # Uses def to define the main function that is responsible for carry
         elif choice == '7': # If the user selected 7
             print("\nExiting the application. Goodbye!") # Prints an exitiing message
             break # Exits the loop if the user has inputted FINISHED 
+        elif choice == '8':  # Handling the case when the user wants to add new numbers, erasing the previous numbers
+            numbers.clear()  # Clears the previous numbers
+            while True: # Starts an infinite loop
+                print("\nEnter new numbers separated by commas (if you have finished inputting, please type 'FINISHED'):") # Prints option to enter new numbers
+                user_input = input().strip() # Get user input from the console and assign it to the variable
+                if user_input.lower() == 'finished': # check if the user input 'FINISHED'
+                    break # Exits the loop of the user input 'FINISHED'
+                try: #Attemps too execute the following code
+                    numbers.extend([float(num) for num in user_input.split(',')]) # Converts each number to a float and makes the list longer with these extra numbers 
+                except ValueError: # Deals with any invalid data
+                    print("INVALID: please enter valid numbers separated by commas.") # Prints an error messsage
         else: # Alternative if the user has entered an invalid number
             print("INVALID: Please enter a number from 1 to 7.") # Prints an error message  
 
