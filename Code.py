@@ -3,10 +3,6 @@
 # Author: Zakareya Ahmad
 # Date: 14/04/2024
 
-import os.path # This line imports the os.path module, which facilitates file path manipulation and checking
-               # It allows the code to perform operations such as verifying the existence of files
-               # The implementation is standard and straightforward, utilising the import keyword to access the module's functionality
-
 def mean(numbers): # This line defines a function (using def) named mean that calculates the arithmetic mean of a list of numbers
     return sum(numbers) / len(numbers) if numbers else None # This line returns the arithmetic mean of the inputted list of numbers if it's not empty, otherwise, it returns None.
 
@@ -40,14 +36,14 @@ def skewness(numbers): # This line defines a function (using def) named skewness
     return val_skewness # Returns the skewness
 
 def read_data_file(file_path): # Uses def to define a function name read_data_file to read data from a file and then return a list of numbers
-    if not os.path.isfile(file_path): # Checks if the file path does not correspond to an existing file
-        print("File Not Found.") # Prints out an error message
-        return [] # Prints out an error message 
-    with open(file_path, 'r') as file: # Using with statment to ensure there is proper file handling it opens the file located at the specified file path for reading
-        data = file.read().strip().split(',') # Reads the contents of the file, and splits the data using commas 
-    try: # Attempts to execute the following code
-        numbers = [float(num) for num in data] # Converts all numbers in the list to a "float"
+    try:
+        with open(file_path, 'r') as file: # Using with statment to ensure there is proper file handling it opens the file located at the specified file path for reading
+            data = file.read().strip().split(',') # Reads the contents of the file, and splits the data using commas 
+        numbers = [float(num) for num in data] # Converts all numbers in the list to a float
         return numbers # Returns the list of numbers
+    except FileNotFoundError: # Checks if the file path does not correspond to an existing file
+        print("File Not Found.") # Prints out an error message
+        return [] # Prints out an error message
     except ValueError: # Deals with any invalid data 
         print("INVALID: There is invalid data within the file.") # Prints an error message
         return [] # Returns an empty list if there is any invalid data
