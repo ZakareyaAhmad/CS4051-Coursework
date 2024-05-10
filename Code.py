@@ -3,7 +3,7 @@
 # Author: Zakareya Ahmad
 # Date: 14/04/2024
 
-def mean(numbers): # This line defines a function (using def) named mean that calculates the arithmetic mean of a list of numbers
+def mean(numbers): # This line defines a function (using def) named mean that calculates the arithmetic mean of a list of numbers using parameter numbers
     return sum(numbers) / len(numbers) if numbers else None # This line returns the arithmetic mean of the inputted list of numbers if it's not empty, otherwise, it returns None.
 
 def median(numbers): # This line defines a function (using def) named median that calculates the arithmetic median of a list of numbers
@@ -14,7 +14,7 @@ def median(numbers): # This line defines a function (using def) named median tha
     else: # If the length of the list is odd
         return sorted_numbers[n // 2] # Returns the middle element of the list if its length is odd
     
-def mode(numbers): # This line defines a function (using def) named mode that calculates the arithmetic mode of a list of numbers
+def mode(numbers): # This line defines a function (using def) named mode that calculates the arithmetic mode of a list of numbers using a paramter named numbers
     occurrences = {} # Creates a dictionary named occurrences to store the frequency of each number
     for num in numbers: #Iterateion over each number within the list
         occurrences[num] = occurrences.get(num, 0) + 1 # Updates the number of occurrences for the current number in the dictionary
@@ -35,18 +35,22 @@ def skewness(numbers): # This line defines a function (using def) named skewness
     val_skewness = sum((x - val_mean) ** 3 for x in numbers) / (n * standard_deviation ** 3) # Calculate the skewness of the input list of numbers using the provided formula
     return val_skewness # Returns the skewness
 
-def read_data_file(file_path): # Uses def to define a function name read_data_file to read data from a file and then return a list of numbers
-    try:
-        with open(file_path, 'r') as file: # Using with statment to ensure there is proper file handling it opens the file located at the specified file path for reading
-            data = file.read().strip().split(',') # Reads the contents of the file, and splits the data using commas 
-        numbers = [float(num) for num in data] # Converts all numbers in the list to a float
-        return numbers # Returns the list of numbers
-    except FileNotFoundError: # Checks if the file path does not correspond to an existing file
-        print("File Not Found.") # Prints out an error message
-        return [] # Prints out an error message
-    except ValueError: # Deals with any invalid data 
-        print("INVALID: There is invalid data within the file.") # Prints an error message
-        return [] # Returns an empty list if there is any invalid data
+def read_numbers_from_file(file_name): # This line defines a function (using def) named read_numbers_from_file that reads the numbers from a file using a parameter named file_name
+    try: # Attempts to execute the following code 
+        with open(file_name, 'r') as file:  # Open the file in read mode
+            lines = file.readlines()  # Read all lines from the file
+            numbers = []  # make an empty list to store the marks
+            for line in lines:  # Go through each line in the file
+                # Split each line by commas, strip whitespace from each mark, and convert them to floats
+                numbers.extend([float(num.strip()) for num in line.split(',')])
+            return numbers  # Return the list of marks read from the file
+    except FileNotFoundError: # Handles any errors that occurs
+        print("Error: File not found.")  # Handles file not found error
+        return [] # Returns an empty list
+    except Exception as e: # Catches any exceptions and assigns it to the variable e
+        print("An error occurred:", e)  # Handle any other exceptions
+        return []  # Return an empty list
+
 
 def main(): # Uses def to define the main function that is responsible for carrying out the code
     numbers = [] # Generates an empty list named numbers to store any numbers that are inputted
@@ -118,14 +122,13 @@ def main(): # Uses def to define the main function that is responsible for carry
                 except ValueError: # Deals with any invalid data  
                     print("INVALID: please enter valid numbers separated by commas.") # Prints an error message 
         elif choice == '6': # If the user selected 6
-            file_path = input("\nEnter the path to the data file: ").strip() # Instructs the user to enter the path to the data file
-            numbers = read_data_file(file_path) # Assigns data from the file from the read_data_file path to the variable numbers
-            print("\nNumbers read from file:", numbers) # Prints the number from the file
+                file_name = input("Enter the file name: ")  # Get the file name from the user
+                marks = read_numbers_from_file(file_name)  # Read marks from the file
+                print("\nNumbers obtained from file: ", marks)  # Print marks from the file
         elif choice == '7': # If the user selected 7
             print("\nExiting the application. Goodbye!") # Prints an exitiing message
             break # Exits the loop if the user has inputted FINISHED 
         else: # Alternative if the user has entered an invalid number
             print("INVALID: Please enter a number from 1 to 7.") # Prints an error message  
 
-if __name__ == "__main__": # Checks if the program is being run
-    main() # Starts the execution of the program
+main() # Starts the execution of the program
